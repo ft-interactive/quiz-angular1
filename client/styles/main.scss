@@ -233,6 +233,10 @@ d3-arc-tween .o-big-number__title {
   top: 50px;
 }
 
+.o-big-number__title.ng-hide {
+  display: none !important;
+}
+
 .o-aside-panel__body ul {
   list-style-type: none;
 }

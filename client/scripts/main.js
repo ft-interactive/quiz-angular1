@@ -26,18 +26,12 @@ app.controller('QuizCtrl', ['$scope', '$http',
   function ($scope) {
     $scope.questions = [];
     $scope.choices = [];
-    $scope.currentQuestion = {
-      value: 0
-    };
-    $scope.userScore = {
-      value: 0
-    };
-    $scope.quizStatus = {
-      isOver: false
-    };
-    $scope.message = {
-      text: null
-    };
+    $scope.questionsAnswered = { value: 0 };
+    $scope.userScore = { value: 0 };
+    $scope.remainPercentage = { value: 0 };
+    $scope.leavePercentage = { value: 0 };
+    $scope.quizStatus = { isOver: false };
+    $scope.message = { text: null };
 
     angular.forEach(window.quiz.data, row => {
       $scope.questions.push(row);
@@ -50,32 +44,20 @@ app.controller('QuestionCtrl', ['$scope', '$timeout', '$window',
   function ($scope, $timeout, $window) {
     $scope.submitAnswer = function () {
       $scope.answerSubmitted = true;
+      $scope.questionsAnswered.value++;
       $scope.userAnswer = this.choice;
-      $scope.correctAnswer = $scope.questions[$scope.currentQuestion.value].answer;
+      $scope.remainAnswer = $scope.questions[$scope.questionsAnswered.value - 1].remainanswer;
+      $scope.leaveAnswer = $scope.questions[$scope.questionsAnswered.value - 1].leaveanswer;
 
-      // If this is the first question, log a start in GA
-      if ($scope.currentQuestion.value === 0) {
-        $window.ga('send', 'event', 'Starts', 'Quiz Started', 'Quiz Started');
-      }
-
-      // Check to see if userAnswer is correct
-      if ($scope.userAnswer === $scope.correctAnswer) {
-        $scope.isCorrect = true;
+      // Check to see if userAnswer matches remainAnswer or leaveAnswer
+      if ($scope.userAnswer === $scope.remainAnswer) {
+        $scope.isRemain = true;
         $scope.userScore.value++;
-
-        // Log correct answer in GA
-        $window.ga('send', 'event',
-          ($scope.currentQuestion.value < 9 ? '0' : null) +
-          ($scope.currentQuestion.value + 1) + '. ' +
-          $scope.questions[$scope.currentQuestion.value].question,
-          'Answer Submitted', $scope.userAnswer + '*');
       } else {
-        // Log incorrect answer in GA
-        $window.ga('send', 'event',
-          ($scope.currentQuestion.value < 9 ? '0' : null) +
-          ($scope.currentQuestion.value + 1) + '. ' +
-          $scope.questions[$scope.currentQuestion.value].question,
-          'Answer Submitted', $scope.userAnswer);
+        if ($scope.userAnswer === $scope.leaveAnswer) {
+          $scope.isLeave = true;
+          $scope.userScore.value--;
+        }
       }
 
       // Display result splash
@@ -86,37 +68,49 @@ app.controller('QuestionCtrl', ['$scope', '$timeout', '$window',
         }, 250);
       }
 
-      // Update progress bar
-      $(document).ready(() => {
-        const progress = ($scope.currentQuestion.value + 1) * 10;
-        $('.progress-bar').width(progress + '%');
-      });
+      function calculatePercentage() {
+        // Calculate user score as a percentage
+        $scope.remainPercentage.value = Math.round($scope.userScore.value /
+          $scope.questions.length * 100);
 
-      function message() {
-        if ($scope.userScore.value > $scope.questions.length / 2) {
-          if ($scope.userScore.value === $scope.questions.length) {
-            $scope.message.text = 'First rate!';
+        // If userPercentage < 0, make it into leavePercentage
+        if ($scope.remainPercentage.value <= 0) {
+          if ($scope.remainPercentage.value < 0) {
+            $scope.leavePercentage.value = -$scope.remainPercentage.value;
           } else {
-            $scope.message.text = 'Not too shabby!';
+            console.log('User is ambivalent');
           }
-        } else {
-          $scope.message.text = 'Room for improvement!';
         }
+
+        console.log('remainPercentage: ' + $scope.remainPercentage.value,
+        'leavePercentage: ' + $scope.leavePercentage.value);
       }
+
+      // function message() {
+      //   if ($scope.userScore.value > $scope.questions.length / 2) {
+      //     if ($scope.userScore.value === $scope.questions.length) {
+      //       $scope.message.text = 'Definitely vote remain!';
+      //     } else {
+      //       $scope.message.text = 'Probably vote remain';
+      //     }
+      //   } else {
+      //     $scope.message.text = 'Probably vote leave';
+      //   }
+      // }
 
       // Check to see if quiz is over
-      if ($scope.currentQuestion.value === $scope.questions.length - 1) {
+      if ($scope.questionsAnswered.value === $scope.questions.length) {
         $scope.quizStatus.isOver = true;
-        message();
-        // Log completion and score in GA
-        $window.ga('send', 'event', 'Completions', 'Quiz Completed');
-        $window.ga('send', 'event', 'Completions', 'Score',
-          $scope.userScore.value + ' out of 10');
-        $window.ga('send', 'event', 'Completions', 'Score', 'Total Score',
-          $scope.userScore.value);
-      } else {
-        $scope.currentQuestion.value++;
+
+        calculatePercentage();
+        // message();
       }
+
+      console.log('questionsAnswered: ' + $scope.questionsAnswered.value);
+
+      // Update progress bar
+      const progress = ($scope.questionsAnswered.value / $scope.questions.length) * 100;
+      $('.progress-bar').width(progress + '%');
     };
   }
 ]);
