@@ -154,6 +154,16 @@ $share-button-size: 38px;
   margin-bottom: 0;
 }
 
+.background-image {
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 0;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
 .o-typography-body-wrapper h2 {
   margin-top: 0.83em;;
 }
@@ -167,6 +177,7 @@ $share-button-size: 38px;
 }
 
 .o-aside-panel__header h3 {
+  font-family: $font-sans;
   margin-bottom: 0;
 }
 
@@ -177,17 +188,37 @@ $share-button-size: 38px;
 }
 
 .answer-controls .o-buttons {
-  margin-bottom: 6px;
   width: 100%;
+  height: 100px;
+  background-clip: border-box;
+  border-color: rgba(255, 255, 255, 0.4);
+  border-radius: 0;
+  border-width: 1px;
+  color: #fff;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
 }
 
-.o-buttons--standout[disabled].correct {
-  background-color: #458b00;
+@media (max-width: 414px) {
+  .answer-controls .o-buttons {
+    height: 127px;
+  }
+}
+.o-buttons[disabled].remain {
+  background-color: #000099;
+  color: #ffcc00;
+}
+
+.o-buttons[disabled].leave {
+  background-color: #cc0000;
   color: #fff;
 }
 
-.o-buttons--standout[disabled].incorrect {
-  background-color: #cc0000;
+.o-buttons[disabled].neither {
+  background-color: rgba(29,29,29,.5);
+  color: #fff;
+}
+
+.o-buttons[disabled] {
   color: #fff;
 }
 
@@ -221,7 +252,7 @@ $share-button-size: 38px;
 }
 
 .splash.correct {
-  background-color: rgba(69, 139, 0, 0.4);
+  background-color: #000099;
 }
 
 .splash.incorrect {
@@ -239,6 +270,10 @@ d3-arc-tween .o-big-number__title {
 
 .o-aside-panel__body ul {
   list-style-type: none;
+}
+
+.o-aside-panel__body ol {
+  font-family: $font-sans;
 }
 
 // Animations
