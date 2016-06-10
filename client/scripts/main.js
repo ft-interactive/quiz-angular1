@@ -89,12 +89,15 @@ app.controller('QuestionCtrl', ['$scope', '$timeout', '$window',
       function message() {
         if ($scope.remainPercentage.value <= 0) {
           if ($scope.remainPercentage.value < 0) {
-            $scope.message.content = 'If you aren\'t already, you may want to consider voting <strong>leave</strong>.';
+            $scope.message.content = 'If you aren\'t already, you may want to' +
+              ' consider voting <strong>leave</strong>.';
           } else {
-            $scope.message.content = "Still undecided? Go to our <a href='http://www.ft.com/eu-referendum'>EU referendum home page</a> for all the FT's referendum coverage.";
+            $scope.message.content = 'Still undecided? Go to our ' +
+            "<a href='http://www.ft.com/eu-referendum'>EU referendum home page</a> for all the FT's referendum coverage.";
           }
         } else {
-          $scope.message.content = 'If you aren\'t already, you may want to consider voting <strong>remain</strong>.';
+          $scope.message.content = 'If you aren\'t already, you may want to' +
+            ' consider voting <strong>remain</strong>.';
         }
       }
 
