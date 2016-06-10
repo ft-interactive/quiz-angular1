@@ -195,7 +195,7 @@ $share-button-size: 38px;
   border-radius: 0;
   border-width: 1px;
   color: #fff;
-  text-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
 }
 
 @media (max-width: 414px) {
@@ -203,24 +203,28 @@ $share-button-size: 38px;
     height: 127px;
   }
 }
-.o-buttons[disabled].remain {
+.o-buttons--inverse[disabled].remain {
   background-color: #000099;
   color: #ffcc00;
 }
 
-.o-buttons[disabled].leave {
+.o-buttons--inverse[disabled].leave {
   background-color: #cc0000;
   color: #fff;
 }
 
-.o-buttons[disabled].neither {
-  background-color: rgba(29,29,29,.5);
+.o-buttons--inverse[disabled].neither {
+  background-color: rgb(29, 29, 29);
   color: #fff;
 }
 
-.o-buttons[disabled] {
+.o-hoverable-on .o-buttons--inverse:not([disabled]):hover {
+  background-color: rgba(31, 48, 48, 0.8);
+  border-color: rgba(255, 255, 255, 0.4);
   color: #fff;
 }
+
+.o-buttons--inverse
 
 .icon-tick {
   @include oIconsGetIcon('tick', oColorsGetPaletteColor('white'), 18);
@@ -234,7 +238,7 @@ $share-button-size: 38px;
   @include oIconsGetIcon('arrow-right', oColorsGetPaletteColor('white'), 18);
 }
 
-.o-buttons.tweet-score {
+.tweet-score {
   margin-right: 0;
   width: 100%;
 }
@@ -246,17 +250,19 @@ $share-button-size: 38px;
   height: 100vh;
   width: 100%;
   padding-top: calc(50vh - 32px);
+  background-color: rgba(51, 51, 51, 0.8);
   color: #fff;
   text-align: center;
   z-index: 999999;
 }
 
-.splash.correct {
-  background-color: #000099;
+.splash.remain {
+  background-color: rgba(0, 0, 153, 0.4);
+  color: #ffcc00;
 }
 
-.splash.incorrect {
-  background-color: rgba(204, 0, 0, 0.4);
+.splash.leave {
+  background-color: rgba(198, 16, 24, 0.4);
 }
 
 d3-arc-tween .o-big-number__title {

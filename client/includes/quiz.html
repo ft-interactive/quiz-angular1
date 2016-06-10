@@ -20,7 +20,7 @@
         <div data-o-grid-colspan="12 M8 center" class="background-image" style="background: url({{questions[$index].imgurl}}) no-repeat center center">
           <div class="answer-controls"
             ng-repeat="choice in choices[$index]">
-            <button class="o-buttons o-buttons--big"
+            <button class="o-buttons o-buttons--big o-buttons--inverse"
               ng-click="submitAnswer()"
               ng-class="{
                 remain: answerSubmitted && choice === userAnswer && choice === remainAnswer,
@@ -58,7 +58,7 @@
     </div>
 
     <div class="splash animate-splash"
-      ng-class="{correct: isRemain, incorrect: !isRemain}"
+      ng-class="{remain: isRemain, leave: isLeave}"
       ng-show="showSplash">
       <div class="o-big-number__title animate-splash"
         ng-show="answerSubmitted && isRemain">
@@ -66,8 +66,13 @@
       </div>
 
       <div class="o-big-number__title animate-splash"
-        ng-show="answerSubmitted && !isRemain">
+        ng-show="answerSubmitted && isLeave">
         +1 Leave
+      </div>
+
+      <div class="o-big-number__title animate-splash"
+        ng-show="answerSubmitted && !isRemain && !isLeave">
+        +0
       </div>
     </div>
   </div> <!-- /ng-repeat -->
@@ -75,8 +80,9 @@
   <!-- Results -->
   <div ng-show="quizStatus.isOver">
     <div class="o-grid-row">
-      <div data-o-grid-colspan="12 M8 L6 center">
-        <div class="o-big-number__title" style="width: 140px; margin-right: auto; margin-left: auto">
+      <div data-o-grid-colspan="12 L6 center">
+        <h2 style="text-align: center">Your result</h2>
+        <div class="o-big-number__title" style="width: 350px; margin-right: auto; margin-left: auto">
           <div style="display: inline; float: left; width: 96px; text-align: right"
             ng-show="remainPercentage.value > 0"
             inc-dec-counter value="{{remainPercentage.value}}" interval="5">
@@ -87,32 +93,68 @@
             inc-dec-counter value="{{leavePercentage.value}}" interval="5">
           </div>
 
-          <div style="display: inline; text-align: left">
-            &#37;
+          <div style="display: inline; width: 253px; text-align: left"
+            ng-show="remainPercentage.value != 0">
+            &#37;&nbsp;{{result.text}}!
           </div>
-        </div>
 
-
-        <div class="o-big-number__content">
-          {{message.text}}
+          <div style="text-align: center"
+            ng-show="remainPercentage.value == 0">
+            {{result.text}}!
+          </div>
         </div>
       </div>
     </div>
 
     <div class="o-grid-row">
+      <div data-o-grid-colspan="12 M8 L6 center">
+        <p ng-bind-html="message.content"></p>
+      </div>
+    </div>
+
+    <div class="o-grid-row">
       <div data-o-grid-colspan="12 M8 L6 center" style="margin-top: 0.5em; margin-bottom: 0.8em; text-align: center">
-        <!-- <div class="answer-controls"> -->
+        <div ng-if="remainPercentage.value > 0">
           <button class="o-buttons o-buttons--big o-buttons--standout tweet-score"
             ng-disabled="!quizStatus.isOver"
             socialshare
             socialshare-provider="twitter"
-            socialshare-text="I just scored {{userScore.value}}/{{questions.length}} on the #FirstFT quiz! Challenge me: "
-            socialshare-url="https://ig.ft.com/sites/quiz/firstft-2016-05-27/">
+            socialshare-text="I'm leaning {{remainPercentage.value}}&#37; towards #{{result.text}}! Take the FT #EUreferendum quiz to see where you stand:"
+            socialshare-url="https://ft.com/eu-referendum"
+            socialshare-via="FT">
             <i class="fa fa-twitter"></i>
 
             Tweet Your Result
           </button>
-        <!-- </div> -->
+        </div>
+
+        <div ng-if="remainPercentage.value < 0">
+          <button class="o-buttons o-buttons--big o-buttons--standout tweet-score"
+            ng-disabled="!quizStatus.isOver"
+            socialshare
+            socialshare-provider="twitter"
+            socialshare-text="I'm leaning {{leavePercentage.value}}&#37; towards #{{result.text}}! Take the FT #EUreferendum quiz to see where you stand:"
+            socialshare-url="https://ft.com/eu-referendum"
+            socialshare-via="FT">
+            <i class="fa fa-twitter"></i>
+
+            Tweet Your Result
+          </button>
+        </div>
+
+        <div ng-if="remainPercentage.value == 0">
+          <button class="o-buttons o-buttons--big o-buttons--standout tweet-score"
+            ng-disabled="!quizStatus.isOver"
+            socialshare
+            socialshare-provider="twitter"
+            socialshare-text="I'm still undecided! Take the FT #EUreferendum quiz to see where you stand:"
+            socialshare-url="https://ft.com/eu-referendum"
+            socialshare-via="FT">
+            <i class="fa fa-twitter"></i>
+
+            Tweet Your Result
+          </button>
+        </div>
       </div>
     </div>
 
