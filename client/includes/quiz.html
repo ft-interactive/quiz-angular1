@@ -17,7 +17,7 @@
       </div>
 
       <div class="o-grid-row" style="margin-left: 0">
-        <div data-o-grid-colspan="12 M8 center" class="background-image" style="background: url({{questions[$index].imgurl}}) no-repeat center center">
+        <div data-o-grid-colspan="12 M8 center" class="background-image" style="background: url({{questions[$index].imgurl}}) {{questions[$index].imgoptions}}">
           <div class="answer-controls"
             ng-repeat="choice in choices[$index]">
             <button class="o-buttons o-buttons--big o-buttons--inverse"
@@ -80,27 +80,36 @@
   <!-- Results -->
   <div ng-show="quizStatus.isOver">
     <div class="o-grid-row">
-      <div data-o-grid-colspan="12 L6 center">
+      <div data-o-grid-colspan="12 M8 L6 center">
         <h2 style="text-align: center">Your result</h2>
-        <div class="o-big-number__title" style="width: 350px; margin-right: auto; margin-left: auto">
-          <div style="display: inline; float: left; width: 96px; text-align: right"
-            ng-show="remainPercentage.value > 0"
-            inc-dec-counter value="{{remainPercentage.value}}" interval="5">
-          </div>
+      </div>
+      <div data-o-grid-colspan="10 L3 center">
+        <div class="o-big-number o-big-number--standard">
+          <div class="o-big-number__title">
+            <div style="display: inline; float: left"
+              ng-show="remainPercentage.value > 0"
+              inc-dec-counter value="{{remainPercentage.value}}" interval="5">
+            </div>
 
-          <div style="display: inline; float: left; width: 96px; text-align: right"
-            ng-show="remainPercentage.value < 0"
-            inc-dec-counter value="{{leavePercentage.value}}" interval="5">
-          </div>
+            <div style="display: inline; float: left"
+              ng-show="remainPercentage.value < 0"
+              inc-dec-counter value="{{leavePercentage.value}}" interval="5">
+            </div>
 
-          <div style="display: inline; width: 253px; text-align: left"
-            ng-show="remainPercentage.value != 0">
-            &#37;&nbsp;{{result.text}}!
-          </div>
+            <div style="display: inline; width: 253px; text-align: left"
+              ng-show="remainPercentage.value != 0">
+              &#37;
+            </div>
 
-          <div style="text-align: center"
-            ng-show="remainPercentage.value == 0">
-            {{result.text}}!
+            <div style="text-align: left"
+              ng-show="remainPercentage.value != 0">
+              {{result.text}}!
+            </div>
+
+            <div style="text-align: center"
+              ng-show="remainPercentage.value == 0">
+              {{result.text}}!
+            </div>
           </div>
         </div>
       </div>
