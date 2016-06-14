@@ -32,7 +32,7 @@ $font-serif: Georgia, serif;
 $font-display: FinancierDisplayWeb, Georgia, serif;
 
 body {
-  @include oColorsFor(page, background);
+  @include oColorsFor(page);
   margin: 0;
   border: 0;
   font-family: $font-sans;
@@ -155,6 +155,7 @@ $share-button-size: 38px;
 }
 
 .background-image {
+  background-size: auto 100%;
   position: relative;
   padding-left: 0;
 }
@@ -196,6 +197,7 @@ $share-button-size: 38px;
 
 .answer-controls {
   position: relative;
+  -webkit-backdrop-filter: blur(3px);
   z-index: 2;
 }
 
@@ -207,12 +209,13 @@ $share-button-size: 38px;
   border-radius: 0;
   border-width: 1px;
   color: #fff;
+  font-size: 19px;
   text-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
 }
 
 @media (max-width: 414px) {
   .answer-controls .o-buttons {
-    height: 127px;
+    height: 140px;
   }
 }
 .o-buttons--inverse[disabled] {
@@ -243,18 +246,8 @@ $share-button-size: 38px;
   color: #fff;
 }
 
-.o-buttons--inverse
-
-.icon-tick {
-  @include oIconsGetIcon('tick', oColorsGetPaletteColor('white'), 18);
-}
-
-.icon-cross {
-  @include oIconsGetIcon('cross', oColorsGetPaletteColor('white'), 18);
-}
-
-.icon-arrow-right {
-  @include oIconsGetIcon('arrow-right', oColorsGetPaletteColor('white'), 18);
+.icon-arrow-down {
+  @include oIconsGetIcon('arrow-down', oColorsGetPaletteColor('grey-tint5'), 36);
 }
 
 .tweet-score {
@@ -284,13 +277,12 @@ $share-button-size: 38px;
   background-color: rgba(198, 16, 24, 0.8);
 }
 
-d3-arc-tween .o-big-number__title {
-  position: relative;
-  top: 50px;
-}
-
 .o-big-number__title.ng-hide {
   display: none !important;
+}
+
+.o-big-number.o-big-number--standard {
+  color: oColorsGetPaletteColor('grey-tint5');
 }
 
 .o-aside-panel__body ul {

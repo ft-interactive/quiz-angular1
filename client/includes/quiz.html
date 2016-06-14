@@ -1,43 +1,42 @@
 <div class="o-grid-container">
-  <div ng-repeat="question in questions"
+  <div class="animate-reveal"
+    ng-repeat="question in questions"
     ng-controller="QuestionCtrl"
     ng-show="$index <= questionsAnswered.value"
     ng-cloak>
-    <div class="animate-reveal">
-      <div class="o-grid-row">
-        <div data-o-grid-colspan="12 M8 L6 center">
-          <h2 style="text-align: center">Question {{$index + 1}} of {{questions.length}}</h2>
-        </div>
+    <div class="o-grid-row">
+      <div data-o-grid-colspan="12 M8 L6 center">
+        <h2 style="text-align: center">Question {{$index + 1}} of {{questions.length}}</h2>
       </div>
+    </div>
 
-      <div class="o-grid-row">
-        <div data-o-grid-colspan="12 M8 L6 center">
-          <h3 class="o-typography-header3" ng-bind-html="questions[$index].question"></h3>
-        </div>
+    <div class="o-grid-row">
+      <div data-o-grid-colspan="12 M8 L6 center">
+        <h3 class="o-typography-header3" ng-bind-html="questions[$index].question"></h3>
       </div>
+    </div>
 
-      <div class="o-grid-row" style="margin-left: 0">
-        <div data-o-grid-colspan="12 M8 center" class="background-image" style="background: url({{questions[$index].imgurl}}) {{questions[$index].imgoptions}}">
-          <div class="answer-controls"
-            ng-repeat="choice in choices[$index]">
-            <button class="o-buttons o-buttons--big o-buttons--inverse"
-              ng-click="submitAnswer()"
-              ng-class="{
-                remain: answerSubmitted && choice === userAnswer && choice === remainAnswer,
-                leave: answerSubmitted && choice === userAnswer && choice === leaveAnswer,
-                neither: answerSubmitted && choice === userAnswer && choice !== remainAnswer && choice !== leaveAnswer}"
-              ng-disabled="answerSubmitted">
-              {{choice}}
-            </button>
-          </div>
-        </div> <!-- /data-o-grid-colspan -->
-      </div> <!-- /o-grid-row -->
+    <div class="o-grid-row" style="margin-left: 0">
+      <div data-o-grid-colspan="12 M8 center" class="background-image" style="background: url({{questions[$index].imgurl}}) {{questions[$index].imgoptions}}">
+        <div class="answer-controls"
+          ng-repeat="choice in choices[$index]">
+          <button class="o-buttons o-buttons--big o-buttons--inverse"
+            ng-click="submitAnswer()"
+            ng-class="{
+              remain: answerSubmitted && choice === userAnswer && choice === remainAnswer,
+              leave: answerSubmitted && choice === userAnswer && choice === leaveAnswer,
+              neither: answerSubmitted && choice === userAnswer && choice !== remainAnswer && choice !== leaveAnswer}"
+            ng-disabled="answerSubmitted">
+            {{choice}}
+          </button>
+        </div>
+      </div> <!-- /data-o-grid-colspan -->
+    </div> <!-- /o-grid-row -->
 
-      <div class="o-grid-row">
-        <div data-o-grid-colspan="12 M8 L6 center">
-          <div class="o-typography-caption">
-            {{questions[$index].imgcredit}}
-          </div>
+    <div class="o-grid-row">
+      <div data-o-grid-colspan="12 M8 L6 center">
+        <div class="o-typography-caption">
+          {{questions[$index].imgcredit}}
         </div>
       </div>
     </div>
@@ -53,6 +52,9 @@
           <div class="o-aside-panel__body">
             <a href="{{questions[$index].linkurl}}" target="_blank">{{questions[$index].linktext}}</a>
           </div>
+        </div>
+        <div style="text-align: center">
+          <i class="icon-arrow-down"></i>
         </div>
       </div> <!-- /data-o-grid-colspan -->
     </div>
@@ -83,17 +85,19 @@
       <div data-o-grid-colspan="12 M8 L6 center">
         <h2 style="text-align: center">Your result</h2>
       </div>
-      <div data-o-grid-colspan="10 L3 center">
+    </div>
+    <div class="o-grid-row">
+      <div data-o-grid-colspan="12 S4 M4 L3 center">
         <div class="o-big-number o-big-number--standard">
           <div class="o-big-number__title">
             <div style="display: inline; float: left"
               ng-show="remainPercentage.value > 0"
-              inc-dec-counter value="{{remainPercentage.value}}" interval="5">
+              inc-dec-counter value="{{remainPercentage.value + 50}}" interval="5">
             </div>
 
             <div style="display: inline; float: left"
               ng-show="remainPercentage.value < 0"
-              inc-dec-counter value="{{leavePercentage.value}}" interval="5">
+              inc-dec-counter value="{{leavePercentage.value + 50}}" interval="5">
             </div>
 
             <div style="display: inline; width: 253px; text-align: left"
@@ -106,7 +110,7 @@
               {{result.text}}!
             </div>
 
-            <div style="text-align: center"
+            <div style="font-size: 0.8em; text-align: left"
               ng-show="remainPercentage.value == 0">
               {{result.text}}!
             </div>
@@ -128,7 +132,7 @@
             ng-disabled="!quizStatus.isOver"
             socialshare
             socialshare-provider="twitter"
-            socialshare-text="I'm leaning {{remainPercentage.value}}&#37; towards #{{result.text}}! Take the FT #EUreferendum quiz to see where you stand:"
+            socialshare-text="I'm leaning {{remainPercentage.value + 50}}&#37; towards #{{result.text}}. Take the FT #EUref quiz to see where you stand:"
             socialshare-url="https://ft.com/eu-referendum"
             socialshare-via="FT">
             <i class="fa fa-twitter"></i>
@@ -142,7 +146,7 @@
             ng-disabled="!quizStatus.isOver"
             socialshare
             socialshare-provider="twitter"
-            socialshare-text="I'm leaning {{leavePercentage.value}}&#37; towards #{{result.text}}! Take the FT #EUreferendum quiz to see where you stand:"
+            socialshare-text="I'm leaning {{leavePercentage.value + 50}}&#37; towards #{{result.text}}. Take the FT #EUref quiz to see where you stand:"
             socialshare-url="https://ft.com/eu-referendum"
             socialshare-via="FT">
             <i class="fa fa-twitter"></i>
@@ -156,8 +160,8 @@
             ng-disabled="!quizStatus.isOver"
             socialshare
             socialshare-provider="twitter"
-            socialshare-text="I'm still undecided! Take the FT #EUreferendum quiz to see where you stand:"
-            socialshare-url="https://ft.com/eu-referendum"
+            socialshare-text="I'm still undecided! Take the FT #EUref quiz to see where you stand:"
+            socialshare-url="https://ig.ft.com/sites/how-should-i-vote-in-the-eu-referendum/"
             socialshare-via="FT">
             <i class="fa fa-twitter"></i>
 

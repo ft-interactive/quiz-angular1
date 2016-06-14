@@ -71,7 +71,7 @@ app.controller('QuestionCtrl', ['$scope', '$timeout', '$window',
       function calculatePercentage() {
         // Calculate user score as a percentage
         $scope.remainPercentage.value = Math.round($scope.userScore.value /
-          $scope.questions.length * 100);
+          $scope.questions.length * 50);
 
         // If userPercentage < 0, make it into leavePercentage
         if ($scope.remainPercentage.value <= 0) {
@@ -119,11 +119,11 @@ app.controller('QuestionCtrl', ['$scope', '$timeout', '$window',
         }
       }
 
-      console.log('questionsAnswered: ' + $scope.questionsAnswered.value);
-
       // Update progress bar
       const progress = ($scope.questionsAnswered.value / $scope.questions.length) * 100;
       $('.progress-bar').width(progress + '%');
+
+      $window.ga('send', 'event', 'Responses', 'submit', $scope.userAnswer);
     };
   }
 ]);
