@@ -11,8 +11,8 @@
     </div>
 
     <div class="o-grid-row">
-      <div data-o-grid-colspan="12 M8 L6 center">
-        <h3 class="o-typography-header3" ng-bind-html="questions[$index].question"></h3>
+      <div data-o-grid-colspan="12 M8 L6 center"
+          ng-bind-html="questions[$index].question">
       </div>
     </div>
 
@@ -22,12 +22,15 @@
           ng-repeat="choice in choices[$index]">
           <button class="o-buttons o-buttons--big o-buttons--inverse"
             ng-click="submitAnswer()"
-            ng-class="{
-              remain: answerSubmitted && choice === userAnswer && choice === remainAnswer,
-              leave: answerSubmitted && choice === userAnswer && choice === leaveAnswer,
-              neither: answerSubmitted && choice === userAnswer && choice !== remainAnswer && choice !== leaveAnswer}"
+            ng-class="{correct: answerSubmitted && choice === correctAnswer, incorrect: answerSubmitted && choice === userAnswer && choice != correctAnswer}"
             ng-disabled="answerSubmitted">
             {{choice}}
+            <div style="float: right; margin-right: -6px">
+              <i class="icon-tick" style="position: absolute"
+                  ng-show="answerSubmitted && choice === userAnswer && choice === correctAnswer"></i>
+              <i class="icon-cross" style="position: absolute"
+                  ng-show="answerSubmitted &&  choice === userAnswer && choice != correctAnswer"></i>
+            </div>
           </button>
         </div>
       </div> <!-- /data-o-grid-colspan -->
@@ -44,37 +47,30 @@
     <div class="o-grid-row animate-reveal"
       ng-show="answerSubmitted">
       <div data-o-grid-colspan="12 M8 L6 center">
-        <div data-o-component="o-aside-panel" class="o-aside-panel">
-          <div class="o-aside-panel__header">
-            <h3 class="o-aside-panel__heading">More on this topic</h3>
-          </div>
-
-          <div class="o-aside-panel__body">
-            <a href="{{questions[$index].linkurl}}" target="_blank">{{questions[$index].linktext}}</a>
-          </div>
-        </div>
         <div style="text-align: center">
           <i class="icon-arrow-down"></i>
         </div>
+        <div ng-bind-html="questions[$index].answercopy"></div>
       </div> <!-- /data-o-grid-colspan -->
     </div>
 
     <div class="splash animate-splash"
-      ng-class="{remain: isRemain, leave: isLeave}"
-      ng-show="showSplash">
+        ng-class="{correct: isCorrect, incorrect: !isCorrect}"
+        ng-show="showSplash">
       <div class="o-big-number__title animate-splash"
-        ng-show="answerSubmitted && isRemain">
-        +1 Remain
+          ng-show="answerSubmitted && isCorrect">
+        Correct
+        <div>
+          <i class="icon-tick-large"></i>
+        </div>
       </div>
 
       <div class="o-big-number__title animate-splash"
-        ng-show="answerSubmitted && isLeave">
-        +1 Leave
-      </div>
-
-      <div class="o-big-number__title animate-splash"
-        ng-show="answerSubmitted && !isRemain && !isLeave">
-        +0
+          ng-show="answerSubmitted && !isCorrect">
+        Incorrect
+        <div>
+          <i class="icon-cross-large"></i>
+        </div>
       </div>
     </div>
   </div> <!-- /ng-repeat -->
@@ -82,109 +78,34 @@
   <!-- Results -->
   <div ng-show="quizStatus.isOver">
     <div class="o-grid-row">
-      <div data-o-grid-colspan="12 M8 L6 center">
-        <h2 style="text-align: center">Your result</h2>
+      <div data-o-grid-colspan="12 M8 L6 center" style="margin-top: 6px; text-align: center">
+        <h2 class="o-typography-header-2">Your result: {{message.text}}</h2>
       </div>
     </div>
+
     <div class="o-grid-row">
-      <div data-o-grid-colspan="12 S4 M4 L3 center">
-        <div class="o-big-number o-big-number--standard">
+      <div data-o-grid-colspan="12 M8 L6 center" style="max-height: 200px; margin-top: 4px; text-align: center">
+        <d3-arc-tween>
           <div class="o-big-number__title">
-            <div style="display: inline; float: left"
-              ng-show="remainPercentage.value > 0"
-              inc-dec-counter value="{{remainPercentage.value + 50}}" interval="5">
-            </div>
-
-            <div style="display: inline; float: left"
-              ng-show="remainPercentage.value < 0"
-              inc-dec-counter value="{{leavePercentage.value + 50}}" interval="5">
-            </div>
-
-            <div style="display: inline; width: 253px; text-align: left"
-              ng-show="remainPercentage.value != 0">
-              &#37;
-            </div>
-
-            <div style="text-align: left"
-              ng-show="remainPercentage.value != 0">
-              {{result.text}}!
-            </div>
-
-            <div style="font-size: 0.8em; text-align: left"
-              ng-show="remainPercentage.value == 0">
-              {{result.text}}!
-            </div>
+            <span style="margin-left: 2px;">{{userScore.value}}</span><span>/{{questions.length}}</span>
           </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="o-grid-row">
-      <div data-o-grid-colspan="12 M8 L6 center">
-        <p ng-bind-html="message.content"></p>
+        </d3-arc-tween>
       </div>
     </div>
 
     <div class="o-grid-row">
       <div data-o-grid-colspan="12 M8 L6 center" style="margin-top: 0.5em; margin-bottom: 0.8em; text-align: center">
-        <div ng-if="remainPercentage.value > 0">
+        <div class="answer-controls">
           <button class="o-buttons o-buttons--big o-buttons--standout tweet-score"
-            ng-disabled="!quizStatus.isOver"
-            socialshare
-            socialshare-provider="twitter"
-            socialshare-text="I'm leaning {{remainPercentage.value + 50}}&#37; towards #{{result.text}}. Take the FT #EUref quiz to see where you stand:"
-            socialshare-url="https://ft.com/eu-referendum"
-            socialshare-via="FT">
+              ng-disabled="!quizStatus.isOver"
+              socialshare
+              socialshare-provider="twitter"
+              socialshare-text="I scored {{userScore.value}}/{{questions.length}} on the FT National Archives quiz! Challenge me: "
+              socialshare-url="http://www.ft.com/firstft-quiz">
             <i class="fa fa-twitter"></i>
 
-            Tweet Your Result
+            Tweet Your Score
           </button>
-        </div>
-
-        <div ng-if="remainPercentage.value < 0">
-          <button class="o-buttons o-buttons--big o-buttons--standout tweet-score"
-            ng-disabled="!quizStatus.isOver"
-            socialshare
-            socialshare-provider="twitter"
-            socialshare-text="I'm leaning {{leavePercentage.value + 50}}&#37; towards #{{result.text}}. Take the FT #EUref quiz to see where you stand:"
-            socialshare-url="https://ft.com/eu-referendum"
-            socialshare-via="FT">
-            <i class="fa fa-twitter"></i>
-
-            Tweet Your Result
-          </button>
-        </div>
-
-        <div ng-if="remainPercentage.value == 0">
-          <button class="o-buttons o-buttons--big o-buttons--standout tweet-score"
-            ng-disabled="!quizStatus.isOver"
-            socialshare
-            socialshare-provider="twitter"
-            socialshare-text="I'm still undecided! Take the FT #EUref quiz to see where you stand:"
-            socialshare-url="https://ig.ft.com/sites/how-should-i-vote-in-the-eu-referendum/"
-            socialshare-via="FT">
-            <i class="fa fa-twitter"></i>
-
-            Tweet Your Result
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="o-grid-row">
-      <div data-o-grid-colspan="12 M8 L6 center">
-        <div data-o-component="o-aside-panel" class="o-aside-panel" style="margin-top: 4px">
-          <div class="o-aside-panel__header">
-            <h3 class="o-aside-panel__heading">Featured in this quiz</h3>
-          </div>
-
-          <div class="o-aside-panel__body">
-            <ol style="font-size: 16px; font-weight: 400">
-              <li ng-repeat="question in questions">
-                <a href="{{question.linkurl}}" target="_blank">{{question.linktext}}</a>
-              </li>
-            </ol>
-          </div>
         </div>
       </div>
     </div>
