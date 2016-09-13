@@ -124,7 +124,7 @@ app.controller('QuestionCtrl', ['$scope', '$timeout', '$window', '$http',
       }
 
       // Update progress bar
-      const progress = ($scope.currentQuestion.value + 1) * 10;
+      const progress = ($scope.currentQuestion.value + 1) * 5;
       document.querySelector('.progress-bar').style.width = `${progress}%`;
 
       $scope.userPercentage.value = window.quiz.responses[$scope.userScore.value].percentage;
