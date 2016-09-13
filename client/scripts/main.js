@@ -66,6 +66,9 @@ app.controller('QuizCtrl', ['$scope', '$http', $scope => {
   $scope.userScore = {
     value: 0
   };
+  $scope.userPercentage = {
+    value: 0
+  };
   $scope.quizStatus = {
     isOver: false
   };
@@ -124,30 +127,32 @@ app.controller('QuestionCtrl', ['$scope', '$timeout', '$window', '$http',
       const progress = ($scope.currentQuestion.value + 1) * 10;
       document.querySelector('.progress-bar').style.width = `${progress}%`;
 
-      // console.log(window.responses.data[$scope.userScore.value].percentage);
+      $scope.userPercentage.value = window.quiz.responses[$scope.userScore.value].percentage;
+
+      console.log($scope.userPercentage.value);
 
       function message() {
-        if ($scope.userScore.value > $scope.questions.length / 2) {
-          if ($scope.userScore.value === $scope.questions.length) {
-            $scope.message.text = 'first rate!';
-          } else {
-            $scope.message.text = 'not too shabby!';
-          }
+        if ($scope.userScore.value >= 16) {
+          $scope.message.text = 'boom! You\'re in bubble territory';
+        } else if ($scope.userScore.value >= 11) {
+          $scope.message.text = 'the green shoots of gentrification';
+        } else if ($scope.userScore.value >= 6) {
+          $scope.message.text = 'up-and-coming?';
         } else {
-          $scope.message.text = 'room for improvement!';
+          $scope.message.text = 'moving back to mum and dad\'s?';
         }
       }
 
       function submit() {
-        const baseURL = 'https://docs.google.com/a/ft.com/forms/d/e/1FAIpQLSfoF6T9t1IGLNJat8JSw_HrxkWPyrxd2mfsH2LieGl7wteU9A/formResponse?entry.550613996=';
+        const baseURL = 'https://docs.google.com/a/ft.com/forms/d/e/1FAIpQLScwe3ItPPf6aGYhXRp8HfmShcwxg5FMEytTHMs7wV3HIMcxHw/formResponse?entry.550613996=';
         const submitURL = (baseURL + $scope.userScore.value);
 
         $http({
           method: 'POST',
           url: submitURL,
         }).then(function success(response) {
-            // this callback will be called asynchronously
-            // when the response is available
+          // this callback will be called asynchronously
+          // when the response is available
           return;
         }, function error(response) {
           // called asynchronously if an error occurs

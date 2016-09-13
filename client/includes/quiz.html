@@ -2,7 +2,7 @@
   <div class="o-grid-row">
     <div data-o-grid-colspan="12 S11 Scenter M9 L8 XL7">
       <p>
-        <em>First</em>FT is your essential daily email briefing of the world's top stories from the FT and the best of the rest of the web. <a href=http://on.ft.com/1be4Xi1 class=o-buttons target=_blank>Sign Up Now</a>
+        <!-- <em>First</em>FT is your essential daily email briefing of the world's top stories from the FT and the best of the rest of the web. <a href=http://on.ft.com/1be4Xi1 class=o-buttons target=_blank>Sign Up Now</a> -->
       </p>
     </div>
   </div>
@@ -112,6 +112,9 @@
     <div class="o-grid-row">
       <div data-o-grid-colspan="12 M8 L6 center" style="margin-top: 6px; text-align: center">
         <h2 class="o-typography-header-2">Your result: {{message.text}}</h2>
+        <p style="text-align: left">
+          You scored higher than <strong>{{userPercentage.value}}</strong> of users.
+        </p>
       </div>
     </div>
 
@@ -135,7 +138,7 @@
               ng-disabled="!quizStatus.isOver"
               socialshare
               socialshare-provider="twitter"
-              socialshare-text="I just scored {{userScore.value}}/{{questions.length}} on the #FirstFT quiz! Challenge me: "
+              socialshare-text="I scored higher than {{userPercentage.value}} of users on the @FT House &amp; Home quiz! Can you do better? "
               socialshare-url="http://www.ft.com/firstft-quiz">
             <i class="fa fa-twitter"></i>
 
@@ -143,7 +146,7 @@
           </button>
 
           <a href="http://www.ft.com/firstft" class="o-buttons o-buttons--big firstft">
-            GO TO <em>First</em>FT
+            GO TO HOUSE &amp; HOME
           </a>
         </div>
       </div>
