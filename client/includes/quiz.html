@@ -2,7 +2,10 @@
   <div class="o-grid-row">
     <div data-o-grid-colspan="12 S11 Scenter M9 L8 XL7">
       <p>
-        <em>First</em>FT is your essential daily email briefing of the world's top stories from the FT and the best of the rest of the web. <a href=http://on.ft.com/1be4Xi1 class=o-buttons target=_blank>Sign Up Now</a>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      </p>
+      <p>
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
       </p>
     </div>
   </div>
@@ -31,13 +34,13 @@
             </div>
 
             <div data-o-grid-colspan="12 L6">
-              <h3 class="o-typography-header3">{{questions[$index].question}}</h3>
+              <div ng-bind-html="questions[$index].question"></div>
 
               <div class="answer-controls"
                   ng-repeat="choice in choices[$index]">
                 <button class="o-buttons o-buttons--big o-buttons--standout"
                     ng-click="submitAnswer()"
-                    ng-class="{correct: answerSubmitted && choice === correctAnswer, incorrect: answerSubmitted && choice === userAnswer && choice != correctAnswer}"
+                    ng-class="{correct: answerSubmitted && choice === correctAnswer, incorrect: answerSubmitted && choice != correctAnswer && choice != 'I\'m not sure'}"
                     ng-disabled="answerSubmitted">
 
                   {{choice}}
@@ -46,7 +49,7 @@
                     <i class="icon-tick" style="position: absolute"
                         ng-show="answerSubmitted && choice === userAnswer && choice === correctAnswer"></i>
                     <i class="icon-cross" style="position: absolute"
-                        ng-show="answerSubmitted &&  choice === userAnswer && choice != correctAnswer"></i>
+                        ng-show="answerSubmitted && choice === userAnswer && choice != correctAnswer && choice != 'I\'m not sure'"></i>
                   </div>
                 </button>
               </div>
@@ -82,7 +85,7 @@
       </div>
 
       <div class="splash animate-splash"
-          ng-class="{correct: isCorrect, incorrect: !isCorrect}"
+          ng-class="{correct: isCorrect, incorrect: !isCorrect && userAnswer != 'I\'m not sure'}"
           ng-show="showSplash">
         <div class="o-big-number__title animate-splash"
             ng-show="answerSubmitted && isCorrect">
@@ -94,7 +97,7 @@
         </div>
 
         <div class="o-big-number__title animate-splash"
-            ng-show="answerSubmitted && !isCorrect">
+            ng-show="answerSubmitted && !isCorrect && userAnswer != 'I\'m not sure'">
           Incorrect
 
           <div>
@@ -135,16 +138,12 @@
               ng-disabled="!quizStatus.isOver"
               socialshare
               socialshare-provider="twitter"
-              socialshare-text="I just scored {{userScore.value}}/{{questions.length}} on the #FirstFT quiz! Challenge me: "
+              socialshare-text="I just scored {{userScore.value}}/{{questions.length}} on the @FT fake news quiz. Challenge me: "
               socialshare-url="http://www.ft.com/firstft-quiz">
             <i class="fa fa-twitter"></i>
 
             Tweet Your Score
           </button>
-
-          <a href="http://www.ft.com/firstft" class="o-buttons o-buttons--big firstft">
-            GO TO <em>First</em>FT
-          </a>
         </div>
       </div>
     </div>
