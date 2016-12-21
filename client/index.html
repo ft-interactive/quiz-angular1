@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="en-GB" class="core"
-    ng-app="quizApp"
-    ng-cloak>
+    ng-app="quizApp">
   <head>
 
     <meta charset="utf-8">
@@ -48,8 +47,6 @@
     <!-- endbuild -->
     <!-- endsmoosh -->
 
-
-
     <!-- Quiz sheet -->
     <script src="https://bertha.ig.ft.com/view/publish/js/{{sheetKey}}/basic?d=quiz"></script>
 
@@ -84,6 +81,7 @@
     <!-- TODO: set base URL **with trailing slash** -->
     <base href="/">
     <!-- <base href="https://ig.ft.com/sites/quiz/firstft-{{publishedDate}}/"> -->
+    <!-- <base href="https://ig.ft.com/_other/david/fake-news-test/"> -->
   </head>
   <body>
     <script>(function(){function init(){var oTracking=Origami['o-tracking'];oTracking.init({server:'https://spoor-api.ft.com/px.gif',system:{is_live:true},context:{product:'IG'}});oTracking.link.init();oTracking.page({"content":{"asset_type":"interactive","uuid":"12045ba8-c2ef-11e6-9bca-2b93a6856354"}});}var o=document.createElement('script');o.async=o.defer=true;o.src='https://origami-build.ft.com/v2/bundles/js?modules=o-tracking';var s=document.getElementsByTagName('script')[0];if(o.hasOwnProperty('onreadystatechange')){o.onreadystatechange=function(){if(o.readyState==='loaded'){init();}};}else{o.onload=init;}s.parentNode.insertBefore(o,s);}());</script><noscript data-o-component="o-tracking"><img src="https://spoor-api.ft.com/px.gif?data=%7B%22action%22%3A%22view%22%2C%22category%22%3A%22page%22%2C%22context%22%3A%7B%22content%22%3A%7B%22asset_type%22%3A%22interactive%22%2C%22uuid%22%3A%2212045ba8-c2ef-11e6-9bca-2b93a6856354%22%7D%2C%22product%22%3A%22IG%22%7D%2C%22system%22%3A%7B%22is_live%22%3Atrue%2C%22apiKey%22%3A%22qUb9maKfKbtpRsdp0p2J7uWxRPGJEP%22%2C%22source%22%3A%22o-tracking-ns%22%2C%22version%22%3A%221.0.0%22%7D%7D" height="1" width="1" /></noscript>
@@ -112,8 +110,21 @@
           </div>
         </div>
 
+        <figure class="graphic graphic-b-1 graphic-pad-1">
+          <img alt="" src="https://www.ft.com/__origami/service/image/v2/images/raw/ftcms%3Ac7db7eba-c778-11e6-8f29-9445cac8966f?source=ig&width=600" />
+          <figcaption class="o-typography-caption">&#xA9; FT graphics</figcaption>
+        </figure>
+
         <div class="o-typography-body-wrapper"
-            ng-controller="QuizCtrl">
+            ng-controller="QuizCtrl" ng-cloak>
+          <div class="article-body">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+            <p>
+              Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            </p>
+          </div>
           <include src="includes/quiz.html"></include>
         </div>
       </article>
@@ -122,6 +133,7 @@
     <include src="includes/footer.html"></include>
 
     <script>if (cutsTheMustard) addScript('https://origami-build.ft.com/v2/bundles/js?modules=o-date@^2.3.3', true, true)</script>
+
     <!-- build:js scripts/main.js -->
     <script src="scripts/main.bundle.js"></script>
     <!-- endbuild -->

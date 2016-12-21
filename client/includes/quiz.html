@@ -1,20 +1,8 @@
 <div class="o-grid-container">
-  <div class="o-grid-row">
-    <div data-o-grid-colspan="12 S11 Scenter M9 L8 XL7">
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-      </p>
-      <p>
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-      </p>
-    </div>
-  </div>
-
   <div ng-repeat="question in questions">
     <div class="animate-reveal"
         ng-controller="QuestionCtrl"
-        ng-show="$index <= currentQuestion.value"
-        ng-cloak>
+        ng-show="$index <= currentQuestion.value">
 
       <div class="o-grid-row">
         <div data-o-grid-colspan="12 M8 L6 center">
@@ -26,7 +14,9 @@
         <div data-o-grid-colspan="12 M8 center">
           <div class="o-grid-row">
             <div data-o-grid-colspan="12 L6" class="quiz-image">
-              <img alt="" ng-src="{{questions[$index].imgurl}}" style="width: 100%">
+              <img alt="" ng-src="{{questions[$index].img1url}}" style="width: 100%" ng-show="!answerSubmitted">
+
+              <img alt="" ng-src="{{questions[$index].img2url}}" style="width: 100%" ng-show="answerSubmitted">
 
               <div class="o-typography-caption">
                 {{questions[$index].imgcredit}}
@@ -62,7 +52,7 @@
 
       <div class="o-grid-row animate-reveal"
           ng-show="answerSubmitted">
-        <div data-o-grid-colspan="12 M8 L6 center">
+        <div data-o-grid-colspan="12 S11 Scenter M8">
           <div style="text-align: center">
             <i class="icon-arrow-down"></i>
           </div>
@@ -73,14 +63,13 @@
 
           <div data-o-component="o-aside-panel" class="o-aside-panel">
             <div class="o-aside-panel__header">
-              <h3 class="o-aside-panel__heading">More on this story</h3>
+              <h3 class="o-aside-panel__heading">Original story</h3>
             </div>
 
             <div class="o-aside-panel__body">
               <a href="{{questions[$index].linkurl}}" target="_blank">{{questions[$index].linktext}}</a>
             </div>
           </div>
-        <!-- /data-o-grid-colspan -->
         </div>
       </div>
 

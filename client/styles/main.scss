@@ -126,6 +126,10 @@ $share-button-size: 38px;
 }
 
 // Custom
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
 .o-header {
   position: -webkit-sticky;
   position: sticky;
