@@ -79,12 +79,12 @@
     <include src="includes/analytics-ga.html"></include>
 
     <!-- TODO: set base URL **with trailing slash** -->
-    <base href="/">
+    <!-- <base href="/"> -->
     <!-- <base href="https://ig.ft.com/sites/quiz/firstft-{{publishedDate}}/"> -->
-    <!-- <base href="https://ig.ft.com/_other/david/fake-news-test/"> -->
+    <base href="https://ig.ft.com/_other/david/fake-news-test/">
   </head>
   <body>
-    <script>(function(){function init(){var oTracking=Origami['o-tracking'];oTracking.init({server:'https://spoor-api.ft.com/px.gif',system:{is_live:true},context:{product:'IG'}});oTracking.link.init();oTracking.page({"content":{"asset_type":"interactive","uuid":"12045ba8-c2ef-11e6-9bca-2b93a6856354"}});}var o=document.createElement('script');o.async=o.defer=true;o.src='https://origami-build.ft.com/v2/bundles/js?modules=o-tracking';var s=document.getElementsByTagName('script')[0];if(o.hasOwnProperty('onreadystatechange')){o.onreadystatechange=function(){if(o.readyState==='loaded'){init();}};}else{o.onload=init;}s.parentNode.insertBefore(o,s);}());</script><noscript data-o-component="o-tracking"><img src="https://spoor-api.ft.com/px.gif?data=%7B%22action%22%3A%22view%22%2C%22category%22%3A%22page%22%2C%22context%22%3A%7B%22content%22%3A%7B%22asset_type%22%3A%22interactive%22%2C%22uuid%22%3A%2212045ba8-c2ef-11e6-9bca-2b93a6856354%22%7D%2C%22product%22%3A%22IG%22%7D%2C%22system%22%3A%7B%22is_live%22%3Atrue%2C%22apiKey%22%3A%22qUb9maKfKbtpRsdp0p2J7uWxRPGJEP%22%2C%22source%22%3A%22o-tracking-ns%22%2C%22version%22%3A%221.0.0%22%7D%7D" height="1" width="1" /></noscript>
+
 
     <include src="includes/header.html"></include>
 
@@ -103,7 +103,7 @@
               <p class="o-typography-lead">{{description}}</p>
 
               <p>
-                <time data-o-component="o-date" class="o-typography-timestamp o-date" datetime="{{publishedDate}}T05:30:00.000Z">{{publishedDateLong}}</time>
+                <time data-o-component="o-date" class="o-typography-timestamp o-date" datetime="{{publishedDate}}T14:30:00.000Z">{{publishedDateLong}}</time>
                 <span class="article__byline">&nbsp;by:&nbsp;<a href="https://www.ft.com/stream/authorsId/MGEyNGE2NjItZjgxMi00MDgxLTgxOTUtOGU2ZTJkNDEwYjE1-QXV0aG9ycw==" target="_blank">Tony Tassell</a>,&nbsp;<a href="https://twitter.com/davidcblood" target="_blank">David Blood</a>&nbsp;and&nbsp;<a href="https://www.ft.com/stream/peopleId/TnN0ZWluX1BOXzE3XzVfMjAwOV8yNTM2OA==-UE4=" target="_blank">Kevin Wilson</a></span>
               </p>
             </header>
@@ -119,10 +119,10 @@
             ng-controller="QuizCtrl" ng-cloak>
           <div class="article-body">
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+              As 2016 unfolded, a flood of fake news sought to challenge the influence of traditional media. Often the fake news appeared outlandish doggerel, laden with conspiracy theories, poor grammar and political invective. That did little to stem its influence though, notably in the US election. And often in 2016, the “real” news seemed to challenge probability.
             </p>
             <p>
-              Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+              Can you discern the difference between fake and real news? Try our quiz to test your judgement.
             </p>
           </div>
           <include src="includes/quiz.html"></include>
