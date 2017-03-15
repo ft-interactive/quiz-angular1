@@ -55,6 +55,6 @@
     "test": "eslint . && npm run build"
   },
   "dependencies": {
-    "velocity-commonjs": "^1.0.1"
+    "velocity-animate": "^1.0.1"
   }
 }

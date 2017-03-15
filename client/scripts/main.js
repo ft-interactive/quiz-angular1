@@ -1,7 +1,7 @@
 import ngAnimate from 'angular-animate';
 import ngRoute from 'angular-route';
 import ngSanitize from 'angular-sanitize';
-import velocity from 'velocity-commonjs';
+import velocity from 'velocity-animate';
 
 const angular = window.angular;
 // App module
